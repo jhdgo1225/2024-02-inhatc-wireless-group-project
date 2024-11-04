@@ -11,7 +11,7 @@ import nest_asyncio
 nest_asyncio.apply()
 
 # 봇 토큰
-TOKEN = '7542688550:AAEXN9TJiuuT7Bo4-avtxmLUYFRFZ6GYgyY'
+TOKEN = 'TOKEN'
 
 # 키보드 생성 함수
 def create_keyboard():
