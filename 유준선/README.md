@@ -1,0 +1,1 @@
+이 모델은 https://www.kaggle.com/code/mathieuduverne/microplastic-detection-yolov8-map-50-76-2에 있는 이미지를 활용해 학습되었습니다.
