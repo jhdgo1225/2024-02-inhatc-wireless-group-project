@@ -5,7 +5,7 @@ from ultralytics import YOLO
 model = YOLO('./runs/detect/train/weights/best.pt')
 
 # 예측할 이미지 경로
-image_path = "./image2.jpg"
+image_path = "./image3.jpg"
 
 # 이미지 읽기
 image = cv2.imread(image_path)
