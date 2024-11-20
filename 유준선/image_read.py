@@ -38,6 +38,8 @@ for box, score, class_id in zip(boxes, scores, class_ids):
     cv2.rectangle(image, (x1, y1), (x2, y2), (0, 255, 0), 2)
     cv2.putText(image, label, (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
 
+cv2.imwrite("detection_result.jpg", image)
+
 # 결과 이미지 표시
 cv2.imshow("Detection Result", image)
 cv2.waitKey(0)
