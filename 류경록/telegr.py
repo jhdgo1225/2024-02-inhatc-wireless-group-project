@@ -6,17 +6,20 @@ import random
 from datetime import datetime
 import asyncio
 import nest_asyncio
+from PIL import Image
+import io
 
 # nest_asyncio 적용
 nest_asyncio.apply()
 
 # 봇 토큰
-TOKEN = 'TOKEN'
+TOKEN = 'TOKEN KEY'
 
 # 키보드 생성 함수
 def create_keyboard():
     keyboard = [
         [KeyboardButton("현재 미세플라스틱 수치")],
+        [KeyboardButton("AI 분석 사진 보기")],
         [KeyboardButton("도움말")]
     ]
     return ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
@@ -42,11 +45,39 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
 상태: {'정상' if random_value < 3.0 else '주의 필요'}
 """
         await update.message.reply_text(response, reply_markup=create_keyboard())
+    
+    elif update.message.text == "AI 분석 사진 보기":
+        try:
+            # 이미지 열기 및 크기 조정 이미지 이름 변경해야함
+            with Image.open('test.jpg') as img:
+                # 텔레그램 권장 크기로 조정
+                max_size = (1280, 720)
+                img.thumbnail(max_size, Image.LANCZOS)
+                
+                
+                bio = io.BytesIO()
+                bio.name = 'image.jpg'
+                img.save(bio, 'JPEG')
+                bio.seek(0)
+                
+                # 조정된 이미지 전송
+                await update.message.reply_photo(
+                    photo=bio,
+                    caption="AI 분석 결과 이미지입니다.",
+                    reply_markup=create_keyboard()
+                )
+        except Exception as e:
+            await update.message.reply_text(
+                "이미지를 불러오는데 실패했습니다. 잠시 후 다시 시도해주세요.",
+                reply_markup=create_keyboard()
+            )
+            print(f"이미지 전송 오류: {e}")
         
     elif update.message.text == "도움말":
         help_text = """
 📌 사용 가능한 기능
 • 현재 미세플라스틱 수치: 실시간 측정값 확인
+• AI 분석 사진 보기 : AI 분석 결과 이미지 확인
 • 도움말: 이 메시지 표시
 
 ❓ 문의사항이 있으시면 관리자에게 연락해주세요.
