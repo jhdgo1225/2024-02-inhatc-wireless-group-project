@@ -10,7 +10,7 @@ Original file is located at
 import cv2
 import numpy as np
 from skimage.feature import local_binary_pattern
-import imageio  # imageio로 이미지를 읽습니다
+import imageio  
 import matplotlib.pyplot as plt
 from google.colab import files
 import io
@@ -99,3 +99,4 @@ image_path = next(iter(uploaded))
 
 # 미세플라스틱 검출
 detect_microplastics(image_path)
+
