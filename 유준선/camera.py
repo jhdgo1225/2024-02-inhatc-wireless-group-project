@@ -1,25 +1,20 @@
 import cv2
 from ultralytics import YOLO
 import time
-def capture_and_detect():
-    # 학습된 모델 로드
-    model = YOLO('./runs/detect/train/weights/best.pt')
 
+model = YOLO('./runs/detect/train/weights/best.pt')
+
+def capture_and_detect():
     # 카메라 초기화
     cap = cv2.VideoCapture(0)
 
     if not cap.isOpened():
-        print("카메라를 열 수 없습니다.")
-        return
-
-    time.sleep(1)
+        raise Exception("카메라를 열 수 없습니다.")
 
     # 프레임 캡처
     ret, frame = cap.read()
     if not ret:
-        print("프레임을 가져올 수 없습니다.")
-        cap.release()
-        return
+        raise Exception("프레임을 가져올 수 없습니다.")
 
     # 원본 이미지 저장
     cv2.imwrite("original_image.jpg", frame)
@@ -29,7 +24,7 @@ def capture_and_detect():
     results = model(frame)
 
     if len(results[0].boxes) == 0:
-        print("탐지된 객체가 없습니다.")
+        raise Exception("탐지된 객체가 없습니다.")
     else:
         boxes = results[0].boxes.xyxy.cpu().numpy()  # 경계 상자 좌표
         scores = results[0].boxes.conf.cpu().numpy()  # 신뢰도 점수
@@ -52,6 +47,7 @@ def capture_and_detect():
         print(f"미세플라스틱이 차지한 면적 비율: {area_ratio:.2f}%")
 
         # 결과 이미지 표시
+        cv2.imwrite("detection_result.jpg", frame)
         cv2.imshow("Detection Result", frame)
 
         print("탐지 결과 이미지가 저장되었습니다: detection_result.jpg")
@@ -59,6 +55,7 @@ def capture_and_detect():
     # 카메라 해제
     cap.release()
     cv2.destroyAllWindows()
+    return num_objects,area_ratio
 
 # 함수 실행
 capture_and_detect()
