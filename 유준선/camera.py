@@ -5,8 +5,9 @@ import time
 model = YOLO('./runs/detect/train/weights/best.pt')
 
 def capture_and_detect():
-    # 카메라 초기화
-    cap = cv2.VideoCapture(0)
+    cap = cv2.VideoCapture(0) # 카메라 초기화
+    oripath = "original_image.jpg" # 원본 이미지 저장 경로
+    detpath = "detection_result.jpg" # 탐지 결과 이미지 저장 경로
 
     if not cap.isOpened():
         raise Exception("카메라를 열 수 없습니다.")
@@ -17,14 +18,16 @@ def capture_and_detect():
         raise Exception("프레임을 가져올 수 없습니다.")
 
     # 원본 이미지 저장
-    cv2.imwrite("original_image.jpg", frame)
-    print("원본 이미지가 저장되었습니다: original_image.jpg")
+    cv2.imwrite(oripath, frame)
+    print("원본 이미지가 저장되었습니다: ",oripath)
 
     # 예측 수행
     results = model(frame)
 
     if len(results[0].boxes) == 0:
-        raise Exception("탐지된 객체가 없습니다.")
+        cv2.imwrite(detpath, frame)
+        print("탐지 결과 이미지가 저장되었습니다: ",detpath)
+        return 0,0
     else:
         boxes = results[0].boxes.xyxy.cpu().numpy()  # 경계 상자 좌표
         scores = results[0].boxes.conf.cpu().numpy()  # 신뢰도 점수
@@ -47,10 +50,10 @@ def capture_and_detect():
         print(f"미세플라스틱이 차지한 면적 비율: {area_ratio:.2f}%")
 
         # 결과 이미지 표시
-        cv2.imwrite("detection_result.jpg", frame)
+        cv2.imwrite(detpath, frame)
         cv2.imshow("Detection Result", frame)
 
-        print("탐지 결과 이미지가 저장되었습니다: detection_result.jpg")
+        print("탐지 결과 이미지가 저장되었습니다: ",detpath)
 
     # 카메라 해제
     cap.release()
