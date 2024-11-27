@@ -9,4 +9,6 @@ sudo apt-get install libjpeg-dev zlib1g-dev
 
 
 ### 이후 변경 사항
-이미지 파일명 변경해야함. 현재는 임시로 test.jpg로 코딩함.
+"테스트"로 검색하면 실제 환경에서 수정 사항 나옴 
+
+에러 로그는 ./log 폴더에 저장 
