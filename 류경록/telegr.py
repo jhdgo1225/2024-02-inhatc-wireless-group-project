@@ -8,12 +8,25 @@ import asyncio
 import nest_asyncio
 from PIL import Image
 import io
+import logging
+
+# 실제 코드 통합 시import 해야함  테스트
+#import camera
 
 # nest_asyncio 적용
 nest_asyncio.apply()
 
+
 # 봇 토큰
-TOKEN = 'TOKEN KEY'
+TOKEN = 'TOKEN'
+
+# 로깅 설정
+log_filename = './log/error.log'
+logging.basicConfig(
+    filename=log_filename,
+    level=logging.ERROR,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+)
 
 # 키보드 생성 함수
 def create_keyboard():
@@ -35,40 +48,69 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
                                       reply_markup=create_keyboard())
         return
     
+            
     if update.message.text == "현재 미세플라스틱 수치":
-        random_value = round(random.uniform(0.5, 5.0), 2)
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-       
-        response = f"""
-측정 시간: {current_time}
-미세플라스틱 수치: {random_value} mg/L
-상태: {'정상' if random_value < 3.0 else '주의 필요'}
-"""
-        await update.message.reply_text(response, reply_markup=create_keyboard())
-    
+        try:
+            # 테스트부분 실제는 주석 풀고 아래 변수 저장한거 지우고 시작
+            #num_objects, area_ratio = camera.capture_and_detect()
+            num_objects = 10
+            area_ratio = 10
+#            raise Exception("에러에러에러 에러발생") 테스트용throw  
+            if num_objects <= 5 and area_ratio <= 4:
+                status = "정상입니다! 안심하고 드세요!"
+            elif num_objects <= 10 and area_ratio <= 10:
+                status = "아직은 괜찮지만 필터를 슬슬 준비해야겠어요!"
+            else:
+                status = "필터를 교체할때가 된거같아요!"
+            
+            response = f"현재 미세플라스틱 상태는 {status}"
+            await update.message.reply_text(response, reply_markup=create_keyboard())
+        
+        except Exception as e:
+            # 에러 메시지를 log에 기록
+            error_message = f"이미지 전송 오류: {e}"
+            logging.error(error_message)  # log 파일에 에러 기록
+
+            await update.message.reply_text(
+                "시스템 오류가 발생했습니다.관리자에게 문의해주세요.
+
+                201944007@itc.ac.kr
+                ",
+                reply_markup=create_keyboard()
+            )
+
     elif update.message.text == "AI 분석 사진 보기":
         try:
-            # 이미지 열기 및 크기 조정 이미지 이름 변경해야함
-            with Image.open('test.jpg') as img:
-                # 텔레그램 권장 크기로 조정
+            await update.message.reply_text("사진을 분석하고 있어요 ! ", reply_markup=create_keyboard())
+            
+            #사진만 분석하고 저장시키느라 return은 무시 테스트
+            #camera.capture_and_detect()
+#            raise Exception("에러에러에러 에러발생 ")  테스트용throw
+            with Image.open('detection_result.jpg') as img:
                 max_size = (1280, 720)
                 img.thumbnail(max_size, Image.LANCZOS)
-                
+                    
                 
                 bio = io.BytesIO()
                 bio.name = 'image.jpg'
                 img.save(bio, 'JPEG')
                 bio.seek(0)
                 
-                # 조정된 이미지 전송
                 await update.message.reply_photo(
                     photo=bio,
                     caption="AI 분석 결과 이미지입니다.",
                     reply_markup=create_keyboard()
                 )
         except Exception as e:
+            # 에러 메시지를 log에 기록
+            error_message = f"이미지 전송 오류: {e}"
+            logging.error(error_message)  # log 파일에 에러 기록
+
             await update.message.reply_text(
-                "이미지를 불러오는데 실패했습니다. 잠시 후 다시 시도해주세요.",
+                "이미지를 불러오는데 실패했습니다. 관리자에게 문의해주세요.
+
+                201944007@itc.ac.kr
+                ",
                 reply_markup=create_keyboard()
             )
             print(f"이미지 전송 오류: {e}")
@@ -76,11 +118,11 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     elif update.message.text == "도움말":
         help_text = """
 📌 사용 가능한 기능
-• 현재 미세플라스틱 수치: 실시간 측정값 확인
-• AI 분석 사진 보기 : AI 분석 결과 이미지 확인
-• 도움말: 이 메시지 표시
+• 현재 미세플라스틱 수치: 현재 수중 미세 플라스틱 위험도를 알려드려요!
 
-❓ 문의사항이 있으시면 관리자에게 연락해주세요.
+• AI 분석 사진 보기 : AI 분석 결과 이미지를 전송해드려요 초록색 네모칸이 미세플라스틱이에요! 
+
+❓ 문의사항이 있으시면 관리자에게 연락해주세요. 201944007@itc.ac.kr
 """
         await update.message.reply_text(help_text, reply_markup=create_keyboard())
         
