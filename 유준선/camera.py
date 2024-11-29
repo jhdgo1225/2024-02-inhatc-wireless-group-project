@@ -51,7 +51,6 @@ def capture_and_detect():
 
         # 결과 이미지 표시
         cv2.imwrite(detpath, frame)
-        cv2.imshow("Detection Result", frame)
 
         print("탐지 결과 이미지가 저장되었습니다: ",detpath)
 
@@ -59,6 +58,3 @@ def capture_and_detect():
     cap.release()
     cv2.destroyAllWindows()
     return num_objects,area_ratio
-
-# 함수 실행
-capture_and_detect()
