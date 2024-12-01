@@ -142,7 +142,7 @@
 
 ### 4.1. 전송 방식<br/>
 
-<img src="https://github.com/user-attachments/assets/a3e4a195-4275-4338-8558-60e97798118e" width="500" height="400" />
+<img src="https://github.com/user-attachments/assets/a3e4a195-4275-4338-8558-60e97798118e" width="800" height="600" />
 
 ① Telegram 챗봇으로 3가지 요청 메시지 중 하나를 입력<br/>
 
@@ -181,7 +181,7 @@
 ### 4.2. 전송 결과 확인<br/>
 
 -   예시<br/>
-    <img src="https://github.com/user-attachments/assets/ad492104-e596-461f-b080-74a54ac18757" width="480" height="600" />
+    <img src="https://github.com/user-attachments/assets/ad492104-e596-461f-b080-74a54ac18757" width="420" height="700" />
 
 ## 5. 미세 플라스틱 검출기 개발 결과<br/>
 
