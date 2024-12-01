@@ -142,7 +142,17 @@
 
 ### 4.1. 전송 과정<br/>
 
+①
+
+②
+
+③
+
 ### 4.2. 전송 결과 확인<br/>
+
+- 순서도<br/>
+- 예시<br/>
+![telegram](https://github.com/user-attachments/assets/ad492104-e596-461f-b080-74a54ac18757)
 
 ## 5. 미세 플라스틱 검출기 개발 결과<br/>
 
