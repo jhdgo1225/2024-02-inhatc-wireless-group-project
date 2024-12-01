@@ -77,8 +77,8 @@
 
 -   [Kaggle의 미세 플라스틱 이미지 데이터셋](https://www.kaggle.com/code/mathieuduverne/microplastic-detection-yolov8-map-50-76-2/notebook)<br/>
 -   이미지<br/>
-    ![이미지1](https://github.com/user-attachments/assets/06e32137-43e5-4546-bfce-2ccdeccdaea3)
-    ![이미지2](https://github.com/user-attachments/assets/a0208f4a-d6ee-4732-bc15-0b664723fe08)
+<img src="https://github.com/user-attachments/assets/06e32137-43e5-4546-bfce-2ccdeccdaea3" width="400" height="420" />
+<img src="https://github.com/user-attachments/assets/a0208f4a-d6ee-4732-bc15-0b664723fe08" width="400" height="420" />
 
 ### 3.3. YOLOv8n 모델 구현 및 시각화 구현 과정<br/>
 
