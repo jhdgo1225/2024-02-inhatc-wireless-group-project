@@ -93,10 +93,13 @@
 
 -   `camera.py` 파일을 사용하여 실시간으로 카메라에서 이미지를 캡처하고 YOLOv8n 모델을 통해 미세 플라스틱을 탐지합니다.
 -   탐지된 객체는 경계 상자와 레이블, 신뢰도 점수와 함께 이미지에 표시됩니다.
--   탐지 결과는 `detection_result.jpg` 파일로 저장되며, 탐지된 미세 플라스틱의 개수와 면적 비율이 출력됩니다.
 -   [MMYOLO visualization Docs](https://mmyolo.readthedocs.io/en/latest/recommended_topics/visualization.html)
 
 ### 3.4. AI 모델 예측 결과<br/>
+
+-   탐지 결과는 `detection_result.jpg` 파일로 저장되며, 탐지된 미세 플라스틱의 개수와 면적 비율이 반환되어 텔레그램 봇이 처리할수 있습니다.
+-   이미지
+<img src="https://github.com/user-attachments/assets/c91aa68f-12aa-4390-98e8-e289ac29fd87" width="1000" height="160" />
 
 ### 3.5 LBP(Local Binary Pattern) 미세 플라스틱 검출 모듈과 YOLOv8n 모델 간의 차이점<br/>
 
