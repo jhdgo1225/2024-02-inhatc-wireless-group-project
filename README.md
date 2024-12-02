@@ -72,6 +72,7 @@
     -   정확도 떨어짐.<br/>
     -   메모리 소모 적음<br/>
 -   사용 이유: USB 전자 현미경을 라즈베리파이 5세대와 연결해서 측정하기 때문에 모델의 정확도보다 경량화와 속도에 집중해야 함.<br/>
+-   [YOLOv8 ultralytics 공식 문서](https://docs.ultralytics.com/ko/models/yolov8/#overview)
 
 ### 3.2. 모델 학습을 위한 데이터셋<br/>
 
@@ -82,11 +83,18 @@
 
 ### 3.3. YOLOv8n 모델 구현 및 시각화 구현 과정<br/>
 
-(참고 자료: 링크 삽입 바람)
+#### 3.3.1 모델 학습 과정
 
-#### 3.3.1 모델 학습 과정<br/>
+-   데이터셋에 들어있는 CSV 형식의 라벨 데이터를 YOLO 형식으로 변환합니다.
+-   변환한 라벨 데이터를 이용해 YOLOv8n 모델을 학습시킵니다.
+-   모델은 `microplastic.yaml` 데이터셋을 사용하여 50epoch 동안 학습됩니다.
 
-#### 3.3.2 시각화 구현<br/>
+#### 3.3.2 시각화 구현
+
+-   `camera.py` 파일을 사용하여 실시간으로 카메라에서 이미지를 캡처하고 YOLOv8n 모델을 통해 미세 플라스틱을 탐지합니다.
+-   탐지된 객체는 경계 상자와 레이블, 신뢰도 점수와 함께 이미지에 표시됩니다.
+-   탐지 결과는 `detection_result.jpg` 파일로 저장되며, 탐지된 미세 플라스틱의 개수와 면적 비율이 출력됩니다.
+-   [MMYOLO visualization Docs](https://mmyolo.readthedocs.io/en/latest/recommended_topics/visualization.html)
 
 ### 3.4. AI 모델 예측 결과<br/>
 
