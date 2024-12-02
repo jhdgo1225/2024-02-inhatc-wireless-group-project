@@ -28,7 +28,7 @@
 
 ### 2.1. 작업 흐름도 설명<br/>
 
-<img src="https://github.com/user-attachments/assets/43b8f99e-9d7e-4060-98b5-e554e5e3a4aa" width="550" height="400" />
+<img src="https://github.com/user-attachments/assets/c769f002-7cbb-46fa-8012-e5f51679b7ba" width="550" height="400" />
 
 ① 현미경 관찰 및 데이터 수집<br/>
 
