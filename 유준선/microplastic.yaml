@@ -1,0 +1,8 @@
+path: D:/INTC/3-2/network/유준선/dataset  # 실제 데이터셋 경로로 변경
+train:
+  - images/train
+val:
+  - images/valid
+
+nc: 1  # 클래스 수
+names: ["Microplastic"]  # 클래스 이름
