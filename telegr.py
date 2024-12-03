@@ -79,8 +79,8 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
         try:
             await update.message.reply_text("사진을 분석하고 있어요 ! ", reply_markup=create_keyboard())
             
-            #사진만 분석하고 저장시키느라 return은 무시
-            camera.capture_and_detect()
+            #분석 사진 보기에서 이미지를 새로 분석할거면 주석 풀기 
+            #camera.capture_and_detect()
 #            raise Exception("에러에러에러 에러발생 ")  테스트용throw
             with Image.open('detection_result.jpg') as img:
                 max_size = (1280, 720)
